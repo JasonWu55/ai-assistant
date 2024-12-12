@@ -91,6 +91,20 @@ app.post('/stop', async (req, res) => {
   }
 });
 
+// 新增啟動模型的端點
+app.post('/start', async (req, res) => {
+  try {
+    const response = await ollama.chat({
+      model: 'qwen2.5:32b',
+      keep_alive: -1  // 設置為 -1 來保持模型運行
+    });
+    
+    res.json({ status: 'success', message: '模型已啟動' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // 加入日曆路由
 app.use('/calendar', calendarRoutes);
 
