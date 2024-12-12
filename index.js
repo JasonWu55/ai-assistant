@@ -1,5 +1,6 @@
+require('dotenv').config();
 const { Ollama } = require("ollama")
-const ollama = new Ollama({ host: 'http://127.0.0.1:11434' });
+const ollama = new Ollama({ host: process.env.OLLAMA_HOST });
 const fs = require('fs');
 const express = require('.pnpm/express@4.21.2/node_modules/express');
 const app = express();
@@ -28,7 +29,7 @@ app.get('/oauth2callback', (req, res) => {
 app.post('/chat', async (req, res) => {
   try {
     let response = await ollama.chat({
-      model: 'qwen2.5:32b',
+      model: process.env.MODEL_NAME,
       messages: [
         {
           role: 'system',
@@ -81,7 +82,7 @@ app.post('/chat', async (req, res) => {
 app.post('/stop', async (req, res) => {
   try {
     const response = await ollama.chat({
-      model: 'qwen2.5:32b',
+      model: process.env.MODEL_NAME,
       keep_alive: 0  // 設置為 0 來停止模型
     });
     
@@ -95,7 +96,7 @@ app.post('/stop', async (req, res) => {
 app.post('/start', async (req, res) => {
   try {
     const response = await ollama.chat({
-      model: 'qwen2.5:32b',
+      model: process.env.MODEL_NAME,
       keep_alive: -1  // 設置為 -1 來保持模型運行
     });
     
@@ -109,7 +110,7 @@ app.post('/start', async (req, res) => {
 app.use('/calendar', calendarRoutes);
 
 // 啟動服務器
-const PORT = process.env.PORT || 55168;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`服務器運行在端口 ${PORT}`);
 });

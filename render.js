@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require("fs");
 const sentencePrompt = fs.readFileSync('./subject_prompt.txt', 'utf-8');
 const calendarPrompt = fs.readFileSync('./calendar_prompt.txt', 'utf-8');
@@ -18,7 +19,7 @@ async function reply(ollama, response, history) {
                 content: response.message.content.replaceAll("[SUBJECT]", "")
             })
             const res = await ollama.chat({
-                model: 'qwen2.5:32b',
+                model: process.env.MODEL_NAME,
                 messages: history,
                 keep_alive: -1,
                 options: {
@@ -99,7 +100,7 @@ async function reply(ollama, response, history) {
             const seed = Math.floor(Math.random()*2147483647);
             console.log("Seed: ", seed);
             const res = await ollama.chat({
-                model: 'qwen2.5:32b',
+                model: process.env.MODEL_NAME,
                 messages: history,
                 keep_alive: -1,
                 options: {
@@ -141,7 +142,7 @@ async function reply(ollama, response, history) {
             const seed = Math.floor(Math.random()*2147483647);
             console.log("Seed: ", seed);
             const res = await ollama.chat({
-                model: 'qwen2.5:32b',
+                model: process.env.MODEL_NAME,
                 messages: history,
                 keep_alive: -1,
                 options: {
@@ -159,7 +160,7 @@ async function reply(ollama, response, history) {
         console.log("Something error, rerendering...", err);
         history.pop();
         const res = await ollama.chat({
-            model: 'qwen2.5:32b',
+            model: process.env.MODEL_NAME,
             messages: history,
             keep_alive: -1,
             options: {
