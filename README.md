@@ -1,0 +1,1 @@
+https://blog.whalin.cc/archives/ai-assistants
