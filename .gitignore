@@ -1,4 +1,5 @@
 .env
 node_modules/
-services/config/*
+services/config/oauth_credentials.json
+services/config/oauth_token.json
 push.bat
