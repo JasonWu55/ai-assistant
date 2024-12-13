@@ -1,1 +1,1 @@
-https://blog.whalin.cc/archives/ai-assistants
+https://blog.whalin.cc/archives/ai-assistant
